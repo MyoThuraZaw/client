@@ -436,7 +436,6 @@ const NodeInRow = (props: NodeInRowProps) => {
         ],
       })
     )
-  const onKickOutWaitingKey = Constants.removeMemberWaitingKey(props.node.teamID, props.username)
   const onKickOut = () => {
     dispatch(
       RouteTreeGen.createNavigateAppend({
@@ -445,10 +444,13 @@ const NodeInRow = (props: NodeInRowProps) => {
         ],
       })
     )
-    //     dispatch(TeamsGen.createRemoveMember({teamID: props.node.teamID, username: props.username}))
-    //     if (props.isParentTeamMe) {
-    //       dispatch(nav.safeNavigateUpPayload())
-    //     }
+  }
+  const onLeaveWaitingKey = Constants.removeMemberWaitingKey(props.node.teamID, props.username)
+  const onLeave = () => {
+    dispatch(TeamsGen.createRemoveMember({teamID: props.node.teamID, username: props.username}))
+    if (props.isParentTeamMe) {
+      dispatch(nav.safeNavigateUpPayload())
+    }
   }
 
   const openTeam = React.useCallback(
@@ -625,10 +627,10 @@ const NodeInRow = (props: NodeInRowProps) => {
                         mode="Secondary"
                         icon={isMe ? 'iconfont-leave' : 'iconfont-block'}
                         type="Danger"
-                        onClick={onKickOut}
+                        onClick={isMe ? onLeave : onKickOut}
                         label={isMe ? 'Leave' : 'Kick out'}
                         small={true}
-                        waitingKey={onKickOutWaitingKey}
+                        waitingKey={isMe ? onLeaveWaitingKey : null}
                       />
                     )}
                   </Kb.Box2>

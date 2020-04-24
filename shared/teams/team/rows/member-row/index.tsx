@@ -161,7 +161,7 @@ export const TeamMemberRow = (props: Props) => {
               danger: true,
               icon: 'iconfont-remove',
               onClick: props.onRemoveFromTeam,
-              title: 'Remove from team',
+              title: 'Remove ZZfrom team',
             },
           ] as Kb.MenuItems)
         : []),
